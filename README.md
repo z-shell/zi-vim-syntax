@@ -1,4 +1,17 @@
-# zinit-vim-syntax
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [`ZINIT-VIM-SYNTAX`](#zinit-vim-syntax)
+  - [Installation](#installation)
+    - [Manual Installation](#manual-installation)
+  - [Examples](#examples)
+  - [TODO](#todo)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# `ZINIT-VIM-SYNTAX`
+
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-blue?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
 A Vim syntax definition for Zinit commands in any file of type `zsh`.
 
@@ -21,23 +34,23 @@ To install the syntax copy the file `syntax/after/zsh.vim` under the path
 
 The default theme:
 
-![plastic](https://raw.githubusercontent.com/zinit-zsh/zinit-vim-syntax/master/images/default.png)
+![plastic](https://raw.githubusercontent.com/zinit-zsh/zinit-vim-syntax/main/images/default.png)
 
 The theme `flrnprz/plastic.vim`:
 
-![plastic](https://raw.githubusercontent.com/zinit-zsh/zinit-vim-syntax/master/images/plastic.png)
+![plastic](https://raw.githubusercontent.com/zinit-zsh/zinit-vim-syntax/main/images/plastic.png)
 
 The theme `slate`:
 
-![plastic](https://raw.githubusercontent.com/zinit-zsh/zinit-vim-syntax/master/images/slate.png)
+![plastic](https://raw.githubusercontent.com/zinit-zsh/zinit-vim-syntax/main/images/slate.png)
 
 The theme `murphy`:
 
-![plastic](https://raw.githubusercontent.com/zinit-zsh/zinit-vim-syntax/master/images/murphy.png)
+![plastic](https://raw.githubusercontent.com/zinit-zsh/zinit-vim-syntax/main/images/murphy.png)
 
 The theme `lucasprag/simpleblack`:
 
-![plastic](https://raw.githubusercontent.com/zinit-zsh/zinit-vim-syntax/master/images/simpleblack.png)
+![plastic](https://raw.githubusercontent.com/zinit-zsh/zinit-vim-syntax/main/images/simpleblack.png)
 
 ## TODO
 
