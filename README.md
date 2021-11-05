@@ -35,23 +35,23 @@ To install the syntax copy the file `syntax/after/zsh.vim` under the path
 
 The default theme:
 
-![plastic](https://raw.githubusercontent.com/zinit-zsh/zinit-vim-syntax/main/images/default.png)
+![plastic](https://raw.githubusercontent.com/z-shell/zinit-vim-syntax/main/images/default.png)
 
 The theme `flrnprz/plastic.vim`:
 
-![plastic](https://raw.githubusercontent.com/zinit-zsh/zinit-vim-syntax/main/images/plastic.png)
+![plastic](https://raw.githubusercontent.com/z-shell/zinit-vim-syntax/main/images/plastic.png)
 
 The theme `slate`:
 
-![plastic](https://raw.githubusercontent.com/zinit-zsh/zinit-vim-syntax/main/images/slate.png)
+![plastic](https://raw.githubusercontent.com/z-shell/zinit-vim-syntax/main/images/slate.png)
 
 The theme `murphy`:
 
-![plastic](https://raw.githubusercontent.com/zinit-zsh/zinit-vim-syntax/main/images/murphy.png)
+![plastic](https://raw.githubusercontent.com/z-shell/zinit-vim-syntax/main/images/murphy.png)
 
 The theme `lucasprag/simpleblack`:
 
-![plastic](https://raw.githubusercontent.com/zinit-zsh/zinit-vim-syntax/main/images/simpleblack.png)
+![plastic](https://raw.githubusercontent.com/z-shell/zinit-vim-syntax/main/images/simpleblack.png)
 
 ### TODO
 
