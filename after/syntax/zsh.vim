@@ -1,122 +1,122 @@
 " Copyright (c) 2019 Sebastian Gniazdowski
+" Copyright (c) 2021 Salvydas Lukosius
 "
-" Syntax highlighting for Zinit commands in any file of type `zsh'.
-" It adds definitions for the Zinit syntax to the ones from the
-" existing zsh.vim definitions-file.
+" Syntax highlighting for ZI commands in any file of type `zsh'.
+" It adds definitions for the ZI syntax to the ones from the existing zsh.vim definitions-file.
 
-" Main Zinit command.
+" Main ZI command.
 " Should be the only TOP rule for the whole syntax.
-syntax match ZinitCommand     /\<zinit\>\s/me=e-1
+syntax match ZICommand     /\<zi\>\s/me=e-1
             \ skipwhite
-            \ nextgroup=ZinitSubCommands,ZinitPluginSubCommands,ZinitSnippetSubCommands
-            \ contains=ZinitSubCommands,ZinitPluginSubCommands,ZinitSnippetSubCommands
+            \ nextgroup=ZISubCommands,ZIPluginSubCommands,ZISnippetSubCommands
+            \ contains=ZISubCommands,ZIPluginSubCommands,ZISnippetSubCommands
 
 " TODO: add options for e.g. light
-syntax match ZinitSubCommands /\s\<\%(ice\|compinit\|env-whitelist\|cdreplay\|cdclear\|update\)\>\s/ms=s+1,me=e-1
+syntax match ZISubCommands /\s\<\%(ice\|compinit\|env-whitelist\|cdreplay\|cdclear\|update\)\>\s/ms=s+1,me=e-1
             \ contained
 
-syntax match ZinitPluginSubCommands /\s\<\%(light\|load\)\>\s/ms=s+1,me=e-1
-            \ skipwhite nextgroup=ZinitPlugin1,ZinitPlugin2,ZinitPlugin3
-            \ contains=ZinitPlugin1,ZinitPlugin2,ZinitPlugin3
+syntax match ZIPluginSubCommands /\s\<\%(light\|load\)\>\s/ms=s+1,me=e-1
+            \ skipwhite nextgroup=ZIPlugin1,ZIPlugin2,ZIPlugin3
+            \ contains=ZIPlugin1,ZIPlugin2,ZIPlugin3
 
-syntax match ZinitSnippetSubCommands /\s\<\%(snippet\)\>\s/ms=s+1,me=e-1
+syntax match ZISnippetSubCommands /\s\<\%(snippet\)\>\s/ms=s+1,me=e-1
             \ skipwhite
-            \ nextgroup=ZinitSnippetShorthands1,ZinitSnippetShorthands2
-            \ contains=ZinitSnippetShorthands1,ZinitSnippetShorthands2
+            \ nextgroup=ZISnippetShorthands1,ZISnippetShorthands2
+            \ contains=ZISnippetShorthands1,ZISnippetShorthands2
 
 " "user/plugin"
-syntax match ZinitPlugin1 /\s["]\%([!-_]*\%(\/[!-_]\+\)\+\|[!-_]\+\)["]/ms=s+1,hs=s+2,he=e-1
+syntax match ZIPlugin1 /\s["]\%([!-_]*\%(\/[!-_]\+\)\+\|[!-_]\+\)["]/ms=s+1,hs=s+2,he=e-1
             \ contained
-            \ nextgroup=ZinitTrailingWhiteSpace
-            \ contains=ZinitTrailingWhiteSpace
+            \ nextgroup=ZITrailingWhiteSpace
+            \ contains=ZITrailingWhiteSpace
 
 " 'user/plugin'
-syntax match ZinitPlugin2 /\s[']\%([!-_]*\%(\/[!-_]\+\)\+\|[!-_]\+\)[']/ms=s+1,hs=s+2,he=e-1
+syntax match ZIPlugin2 /\s[']\%([!-_]*\%(\/[!-_]\+\)\+\|[!-_]\+\)[']/ms=s+1,hs=s+2,he=e-1
             \ contained
-            \ nextgroup=ZinitTrailingWhiteSpace
-            \ contains=ZinitTrailingWhiteSpace
+            \ nextgroup=ZITrailingWhiteSpace
+            \ contains=ZITrailingWhiteSpace
 
 " user/plugin
-syntax match ZinitPlugin3 /\s\%([!-_]*\%(\/[!-_]\+\)\+\|[!-_]\+\)/ms=s+1,me=e+2 
+syntax match ZIPlugin3 /\s\%([!-_]*\%(\/[!-_]\+\)\+\|[!-_]\+\)/ms=s+1,me=e+2 
             \ contained
-            \ nextgroup=ZinitTrailingWhiteSpace
-            \ contains=ZinitTrailingWhiteSpace
+            \ nextgroup=ZITrailingWhiteSpace
+            \ contains=ZITrailingWhiteSpace
 
 " OMZ:: or PZT::
 " TODO: 'OMZ:: or 'PZT::
-syntax match ZinitSnippetShorthands1 /\s\<\%(\%(OMZ\|PZT\)\>::\|\)/hs=s+1,he=e-2
+syntax match ZISnippetShorthands1 /\s\<\%(\%(OMZ\|PZT\)\>::\|\)/hs=s+1,he=e-2
             \ contained
             \ skipwhite
-            \ nextgroup=ZinitSnippetUrl1,ZinitSnippetUrl2
-            \ contains=ZinitSnippetUrl1,ZinitSnippetUrl2
+            \ nextgroup=ZISnippetUrl1,ZISnippetUrl2
+            \ contains=ZISnippetUrl1,ZISnippetUrl2
 
 " "OMZ:: or "PZT::
-syntax match ZinitSnippetShorthands2 /\s["]\%(\%(OMZ\|PZT\)\>::\|\)/hs=s+2,he=e-2
+syntax match ZISnippetShorthands2 /\s["]\%(\%(OMZ\|PZT\)\>::\|\)/hs=s+2,he=e-2
             \ contained
             \ skipwhite
-            \ nextgroup=ZinitSnippetUrl3,ZinitSnippetUrl4
-            \ contains=ZinitSnippetUrl3,ZinitSnippetUrl4
+            \ nextgroup=ZISnippetUrl3,ZISnippetUrl4
+            \ contains=ZISnippetUrl3,ZISnippetUrl4
 
-syntax match ZinitSnippetUrl3 /\<\%(http:\/\/\|https:\/\/\|ftp:\/\/\|\$HOME\|\/\)[!-_]\+\%(\/[!-_]\+\)*\/\?["]/he=e-1
+syntax match ZISnippetUrl3 /\<\%(http:\/\/\|https:\/\/\|ftp:\/\/\|\$HOME\|\/\)[!-_]\+\%(\/[!-_]\+\)*\/\?["]/he=e-1
             \ contained
-            \ nextgroup=ZinitTrailingWhiteSpace
-            \ contains=ZinitTrailingWhiteSpace
+            \ nextgroup=ZITrailingWhiteSpace
+            \ contains=ZITrailingWhiteSpace
 
-" TODO: Fix ZinitTrailingWhiteSpace not matching
-syntax match ZinitSnippetUrl4 /\%(\%(OMZ\|PZT\)::\)[!-_]\+\%(\/[!-_]\+\)*\/\?["]/hs=s+5,he=e-1
+" TODO: Fix ZITrailingWhiteSpace not matching
+syntax match ZISnippetUrl4 /\%(\%(OMZ\|PZT\)::\)[!-_]\+\%(\/[!-_]\+\)*\/\?["]/hs=s+5,he=e-1
             \ contained
-            \ nextgroup=ZinitTrailingWhiteSpace
-            \ contains=ZinitTrailingWhiteSpace
+            \ nextgroup=ZITrailingWhiteSpace
+            \ contains=ZITrailingWhiteSpace
 
 " http://… or https://… or ftp://… or $HOME/… or /…
 " TODO: Fix $HOME/… and /… not matching
-syntax match ZinitSnippetUrl1 /\<\%(http:\/\/\|https:\/\/\|ftp:\/\/\|\$HOME\|\/\)[!-_]\+\%(\/[!-_]\+\)*\/\?/
+syntax match ZISnippetUrl1 /\<\%(http:\/\/\|https:\/\/\|ftp:\/\/\|\$HOME\|\/\)[!-_]\+\%(\/[!-_]\+\)*\/\?/
             \ contained
-            \ nextgroup=ZinitTrailingWhiteSpace
-            \ contains=ZinitTrailingWhiteSpace
+            \ nextgroup=ZITrailingWhiteSpace
+            \ contains=ZITrailingWhiteSpace
 
-" TODO: Fix ZinitTrailingWhiteSpace not matching
-syntax match ZinitSnippetUrl2 /\<\%(\%(OMZ\|PZT\)::\)[!-_]\+\%(\/[!-_]\+\)*\/\?/hs=s+5
+" TODO: Fix ZITrailingWhiteSpace not matching
+syntax match ZISnippetUrl2 /\<\%(\%(OMZ\|PZT\)::\)[!-_]\+\%(\/[!-_]\+\)*\/\?/hs=s+5
             \ contained
-            \ nextgroup=ZinitTrailingWhiteSpace
-            \ contains=ZinitTrailingWhiteSpace
+            \ nextgroup=ZITrailingWhiteSpace
+            \ contains=ZITrailingWhiteSpace
 
-syntax match ZinitTrailingWhiteSpace /[[:space:]]\+$/ contained
+syntax match ZITrailingWhiteSpace /[[:space:]]\+$/ contained
 
 " TODO: differentiate the no-value ices
 " TODO: use contained
-syntax match ZinitIceSubCommand /\sice\s/ms=s+1,me=e-1 nextgroup=ZinitIceModifiers
-syntax match ZinitIceModifiers  /\s\<\%(svn\|proto\|from\|teleid\|bindmap\|cloneopts\|id-as\|depth\|if\|wait\|load\)\>/ms=s+1
-syntax match ZinitIceModifiers  /\s\<\%(unload\|blockf\|on-update-of\|subscribe\|pick\|bpick\|src\|as\|ver\|silent\)\>/ms=s+1
-syntax match ZinitIceModifiers  /\s\<\%(lucid\|notify\|mv\|cp\|atinit\|atclone\|atload\|atpull\|nocd\|run-atpull\|has\)\>/ms=s+1
-syntax match ZinitIceModifiers  /\s\<\%(cloneonly\|make\|service\|trackbinds\|multisrc\|compile\|nocompile\)\>/ms=s+1
-syntax match ZinitIceModifiers  /\s\<\%(nocompletions\|reset-prompt\|wrap-track\|reset\|aliases\|sh\|bash\|ksh\|csh\)\>/ms=s+1
-syntax match ZinitIceModifiers  /\s\<\%(\\!sh\|!sh\|\\!bash\|!bash\|\\!ksh\|!ksh\|\\!csh\|!csh\)\>/ms=s+1
-syntax match ZinitIceModifiers  /\s\<\%(blockf\|silent\|lucid\|trackbinds\|cloneonly\|nocd\|run-atpull\)\>/ms=s+1
-syntax match ZinitIceModifiers  /\s\<\%(\|sh\|\!sh\|bash\|\!bash\|ksh\|\!ksh\|csh\|\!csh\)\>/ms=s+1
-syntax match ZinitIceModifiers  /\s\<\%(nocompletions\|svn\|aliases\|trigger-load\)\>/ms=s+1
-syntax match ZinitIceModifiers  /\s\<\%(light-mode\|is-snippet\|countdown\|ps-on-unload\|ps-on-update\)\>/ms=s+1
+syntax match ZIIceSubCommand /\sice\s/ms=s+1,me=e-1 nextgroup=ZIIceModifiers
+syntax match ZIIceModifiers  /\s\<\%(svn\|proto\|from\|teleid\|bindmap\|cloneopts\|id-as\|depth\|if\|wait\|load\)\>/ms=s+1
+syntax match ZIIceModifiers  /\s\<\%(unload\|blockf\|on-update-of\|subscribe\|pick\|bpick\|src\|as\|ver\|silent\)\>/ms=s+1
+syntax match ZIIceModifiers  /\s\<\%(lucid\|notify\|mv\|cp\|atinit\|atclone\|atload\|atpull\|nocd\|run-atpull\|has\)\>/ms=s+1
+syntax match ZIIceModifiers  /\s\<\%(cloneonly\|make\|service\|trackbinds\|multisrc\|compile\|nocompile\)\>/ms=s+1
+syntax match ZIIceModifiers  /\s\<\%(nocompletions\|reset-prompt\|wrap-track\|reset\|aliases\|sh\|bash\|ksh\|csh\)\>/ms=s+1
+syntax match ZIIceModifiers  /\s\<\%(\\!sh\|!sh\|\\!bash\|!bash\|\\!ksh\|!ksh\|\\!csh\|!csh\)\>/ms=s+1
+syntax match ZIIceModifiers  /\s\<\%(blockf\|silent\|lucid\|trackbinds\|cloneonly\|nocd\|run-atpull\)\>/ms=s+1
+syntax match ZIIceModifiers  /\s\<\%(\|sh\|\!sh\|bash\|\!bash\|ksh\|\!ksh\|csh\|\!csh\)\>/ms=s+1
+syntax match ZIIceModifiers  /\s\<\%(nocompletions\|svn\|aliases\|trigger-load\)\>/ms=s+1
+syntax match ZIIceModifiers  /\s\<\%(light-mode\|is-snippet\|countdown\|ps-on-unload\|ps-on-update\)\>/ms=s+1
             
 " Include also ices added by the existing annexes
-syntax match ZinitIceModifiers  /\s\<\%(test\|zman\|submod\|dl\|patch\|fbin\|sbin\|fsrc\|ferc\|fmod\|gem\|node\|rustup\|cargo\)\>/ms=s+1
+syntax match ZIIceModifiers  /\s\<\%(test\|zman\|submod\|dl\|patch\|fbin\|sbin\|fsrc\|ferc\|fmod\|gem\|node\|rustup\|cargo\)\>/ms=s+1
         
-" Additional Zsh and Zinit functions
-syntax match ZshAndZinitFunctions     /\<\%(compdef\|compinit\|zpcdreplay\|zpcdclear\|zpcompinit\|zpcompdef\)\>/
+" Additional Zsh and ZI functions
+syntax match ZshAndZIFunctions     /\<\%(compdef\|compinit\|zpcdreplay\|zpcdclear\|zpcompinit\|zpcompdef\)\>/
 
 " Link
-highlight def link ZshAndZinitFunctions    Keyword
-highlight def link ZinitCommand            Statement
-highlight def link ZinitSubCommands        Title
-highlight def link ZinitPluginSubCommands  Title
-highlight def link ZinitSnippetSubCommands Title
-highlight def link ZinitIceModifiers       Type
-highlight def link ZinitSnippetShorthands1 Keyword
-highlight def link ZinitSnippetShorthands2 Keyword
-highlight def link ZinitPlugin1            Macro
-highlight def link ZinitPlugin2            Macro
-highlight def link ZinitPlugin3            Macro
-highlight def link ZinitSnippetUrl1        Macro
-highlight def link ZinitSnippetUrl2        Macro
-highlight def link ZinitSnippetUrl3        Macro
-highlight def link ZinitSnippetUrl4        Macro
-highlight def link ZinitTrailingWhiteSpace Error
+highlight def link ZshAndZIFunctions    Keyword
+highlight def link ZICommand            Statement
+highlight def link ZISubCommands        Title
+highlight def link ZIPluginSubCommands  Title
+highlight def link ZISnippetSubCommands Title
+highlight def link ZIIceModifiers       Type
+highlight def link ZISnippetShorthands1 Keyword
+highlight def link ZISnippetShorthands2 Keyword
+highlight def link ZIPlugin1            Macro
+highlight def link ZIPlugin2            Macro
+highlight def link ZIPlugin3            Macro
+highlight def link ZISnippetUrl1        Macro
+highlight def link ZISnippetUrl2        Macro
+highlight def link ZISnippetUrl3        Macro
+highlight def link ZISnippetUrl4        Macro
+highlight def link ZITrailingWhiteSpace Error
