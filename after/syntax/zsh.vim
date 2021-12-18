@@ -15,7 +15,7 @@ syntax match ZICommand     /\<\%(zi\|zi-turbo\)\>\s/me=e-1
 syntax match ZISubCommands /\s\<\%(ice\|compinit\|env-whitelist\|cdreplay\|cdclear\|update\)\>\s/ms=s+1,me=e-1
             \ contained
 
-syntax match ZIPluginSubCommands /\s\<\%(light\|load\)\>\s/ms=s+1,me=e-1
+syntax match ZIPluginSubCommands /\s\<\%(light\|load\|light-mode\|for\)\>\s/ms=s+1,me=e-1
             \ skipwhite nextgroup=ZIPlugin1,ZIPlugin2,ZIPlugin3
             \ contains=ZIPlugin1,ZIPlugin2,ZIPlugin3
 
