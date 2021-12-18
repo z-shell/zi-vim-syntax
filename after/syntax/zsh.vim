@@ -15,11 +15,6 @@ syntax match ZICommand     /\<\%(zi\|zi-turbo\)\>\s/me=e-1
 syntax match ZISubCommands /\s\<\%(ice\|compinit\|env-whitelist\|cdreplay\|cdclear\|update\)\>\s/ms=s+1,me=e-1
             \ contained
 
-syntax match ZIforSubCommand /\sfor\s/ms=s+1,me=e-1 
-            \ skipwhite 
-            \ nextgroup=ZIPlugin1,ZIPlugin2,ZIPlugin3,ZISnippetShorthands1,ZISnippetShorthands2
-            \ contains=ZIPlugin1,ZIPlugin2,ZIPlugin3,ZISnippetShorthands1,ZISnippetShorthands2
-
 syntax match ZIPluginSubCommands /\s\<\%(light\|load\)\>\s/ms=s+1,me=e-1
             \ skipwhite 
             \ nextgroup=ZIPlugin1,ZIPlugin2,ZIPlugin3
@@ -114,8 +109,6 @@ syntax match ZshAndZIFunctions     /\<\%(compdef\|compinit\|zicdreplay\|zicdclea
 highlight def link ZshAndZIFunctions    Keyword
 highlight def link ZICommand            Statement
 highlight def link ZISubCommands        Title
-highlight def link ZIforSubCommand      Title
-highlight def link ZIIceSubCommand      Title
 highlight def link ZIPluginSubCommands  Title
 highlight def link ZISnippetSubCommands Title
 highlight def link ZIIceModifiers       Type
