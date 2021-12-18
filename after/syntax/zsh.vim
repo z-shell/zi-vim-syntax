@@ -6,7 +6,7 @@
 
 " Main ZI command.
 " Should be the only TOP rule for the whole syntax.
-syntax match ZICommand     /\<zi\|zi-turbo\>\s/me=e-1
+syntax match ZICommand     /\<\%(zi\|zi-turbo\)\>\s/me=e-1
             \ skipwhite
             \ nextgroup=ZISubCommands,ZIPluginSubCommands,ZISnippetSubCommands
             \ contains=ZISubCommands,ZIPluginSubCommands,ZISnippetSubCommands
