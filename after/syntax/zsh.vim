@@ -19,7 +19,7 @@ syntax match ZIPluginSubCommands /\s\<\%(light\|load\|light-mode\|for\)\>\s/ms=s
             \ skipwhite nextgroup=ZIPlugin1,ZIPlugin2,ZIPlugin3
             \ contains=ZIPlugin1,ZIPlugin2,ZIPlugin3
 
-syntax match ZISnippetSubCommands /\s\<\%(snippet\)\>\s/ms=s+1,me=e-1
+syntax match ZISnippetSubCommands /\s\<\%(snippet\|light-mode\|for\)\>\s/ms=s+1,me=e-1
             \ skipwhite
             \ nextgroup=ZISnippetShorthands1,ZISnippetShorthands2
             \ contains=ZISnippetShorthands1,ZISnippetShorthands2
