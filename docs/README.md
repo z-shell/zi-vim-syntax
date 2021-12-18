@@ -1,8 +1,15 @@
-A Vim syntax definition for ZI commands in any file of type `zsh`.
+<h2 align="center">
+  <a href="https://github.com/z-shell/zi">
+    <img src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="Logo" width="80" height="80">
+  </a>
+❮ ZI ❯ Vim Syntax
+</h2>
+  
+A Vim syntax definition for [ZI](https://) commands in any file of type `zsh`.
 
 # Installation
 
-Load as a Vim plugin. E.g. when using vim-plug, add to `~/.vimrc`:
+Load as a Vim plugin. E.g. when using [vim-plug](https://github.com/junegunn/vim-plug), add to `~/.vimrc`:
 
 ```vim
 Plug 'z-shell/zi-vim-syntax'
