@@ -4,8 +4,8 @@
   </a>
 ❮ ZI ❯ Vim Syntax
 </h2>
-  
-A Vim syntax definition for [ZI](https://) commands in any file of type `zsh`.
+
+A Vim syntax definition for [ZI](https://github.com/z-shell/zi) commands in any file of type `zsh`.
 
 # Installation
 
@@ -19,30 +19,29 @@ and then issue the `:PlugInstall` command.
 
 ## Manual Installation
 
-To install the syntax copy the file `syntax/after/zsh.vim` under the path
-`~/.vim/syntax/after`.
+To install the syntax copy the file `after/syntax/zsh.vim` under the path `~/.vim/syntax/after`.
 
 ### Examples
 
 The default theme:
 
-![plastic](../images/default.png)
+![plastic](images/default.png)
 
 The theme `flrnprz/plastic.vim`:
 
-![plastic](../images/plastic.png)
+![plastic](images/plastic.png)
 
 The theme `slate`:
 
-![plastic](../images/slate.png)
+![plastic](images/slate.png)
 
 The theme `murphy`:
 
-![plastic](../images/murphy.png)
+![plastic](images/murphy.png)
 
 The theme `lucasprag/simpleblack`:
 
-![plastic](../images/simpleblack.png)
+![plastic](images/simpleblack.png)
 
 ### TODO
 
