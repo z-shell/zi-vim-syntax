@@ -44,14 +44,14 @@ syntax match ZIPlugin3 /\s\%([!-_]*\%(\/[!-_]\+\)\+\|[!-_]\+\)/ms=s+1,me=e+2
 
 " OMZ:: or PZT::
 " TODO: 'OMZ:: or 'PZT::
-syntax match ZISnippetShorthands1 /\s\<\%(\%(OMZ\|PZT\)\>::\|\)/hs=s+1,he=e-2
+syntax match ZISnippetShorthands1 /\s\<\%(\%(OMZ\|OMZP\|OMZL\|OMZT\|PZT\)\>::\|\)/hs=s+1,he=e-2
             \ contained
             \ skipwhite
             \ nextgroup=ZISnippetUrl1,ZISnippetUrl2
             \ contains=ZISnippetUrl1,ZISnippetUrl2
 
 " "OMZ:: or "PZT::
-syntax match ZISnippetShorthands2 /\s["]\%(\%(OMZ\|PZT\)\>::\|\)/hs=s+2,he=e-2
+syntax match ZISnippetShorthands2 /\s["]\%(\%(OMZ\|OMZP\|OMZL\|OMZT\|PZT\)\>::\|\)/hs=s+2,he=e-2
             \ contained
             \ skipwhite
             \ nextgroup=ZISnippetUrl3,ZISnippetUrl4
@@ -63,7 +63,7 @@ syntax match ZISnippetUrl3 /\<\%(http:\/\/\|https:\/\/\|ftp:\/\/\|\$HOME\|\/\)[!
             \ contains=ZITrailingWhiteSpace
 
 " TODO: Fix ZITrailingWhiteSpace not matching
-syntax match ZISnippetUrl4 /\%(\%(OMZ\|PZT\)::\)[!-_]\+\%(\/[!-_]\+\)*\/\?["]/hs=s+5,he=e-1
+syntax match ZISnippetUrl4 /\%(\%(OMZ\|OMZP\|OMZL\|OMZT\|PZT\)::\)[!-_]\+\%(\/[!-_]\+\)*\/\?["]/hs=s+5,he=e-1
             \ contained
             \ nextgroup=ZITrailingWhiteSpace
             \ contains=ZITrailingWhiteSpace
@@ -76,7 +76,7 @@ syntax match ZISnippetUrl1 /\<\%(http:\/\/\|https:\/\/\|ftp:\/\/\|\$HOME\|\/\)[!
             \ contains=ZITrailingWhiteSpace
 
 " TODO: Fix ZITrailingWhiteSpace not matching
-syntax match ZISnippetUrl2 /\<\%(\%(OMZ\|PZT\)::\)[!-_]\+\%(\/[!-_]\+\)*\/\?/hs=s+5
+syntax match ZISnippetUrl2 /\<\%(\%(OMZ\|OMZP\|OMZL\|OMZT\|PZT\)::\)[!-_]\+\%(\/[!-_]\+\)*\/\?/hs=s+5
             \ contained
             \ nextgroup=ZITrailingWhiteSpace
             \ contains=ZITrailingWhiteSpace
@@ -86,22 +86,23 @@ syntax match ZITrailingWhiteSpace /[[:space:]]\+$/ contained
 " TODO: differentiate the no-value ices
 " TODO: use contained
 syntax match ZIIceSubCommand /\sice\s/ms=s+1,me=e-1 nextgroup=ZIIceModifiers
-syntax match ZIIceModifiers  /\s\<\%(svn\|proto\|from\|teleid\|bindmap\|cloneopts\|id-as\|depth\|if\|wait\|load\)\>/ms=s+1
+syntax match ZIIceModifiers  /\s\<\%(svn\|proto\|from\|teleid\|bindmap\|cloneopts|\pullopts|id-as\|depth\|if\|wait\|load\|pack\)\>/ms=s+1
 syntax match ZIIceModifiers  /\s\<\%(unload\|blockf\|on-update-of\|subscribe\|pick\|bpick\|src\|as\|ver\|silent\)\>/ms=s+1
 syntax match ZIIceModifiers  /\s\<\%(lucid\|notify\|mv\|cp\|atinit\|atclone\|atload\|atpull\|nocd\|run-atpull\|has\)\>/ms=s+1
-syntax match ZIIceModifiers  /\s\<\%(cloneonly\|make\|service\|trackbinds\|multisrc\|compile\|nocompile\)\>/ms=s+1
+syntax match ZIIceModifiers  /\s\<\%(cloneonly\|make\|service\|trackbinds\|multisrc\|compile\|nocompile\|extract\)\>/ms=s+1
 syntax match ZIIceModifiers  /\s\<\%(nocompletions\|reset-prompt\|wrap-track\|reset\|aliases\|sh\|bash\|ksh\|csh\)\>/ms=s+1
 syntax match ZIIceModifiers  /\s\<\%(\\!sh\|!sh\|\\!bash\|!bash\|\\!ksh\|!ksh\|\\!csh\|!csh\)\>/ms=s+1
-syntax match ZIIceModifiers  /\s\<\%(blockf\|silent\|lucid\|trackbinds\|cloneonly\|nocd\|run-atpull\)\>/ms=s+1
+syntax match ZIIceModifiers  /\s\<\%(blockf\|silent\|lucid\|cloneonly\|nocd\|run-atpull\)\>/ms=s+1
 syntax match ZIIceModifiers  /\s\<\%(\|sh\|\!sh\|bash\|\!bash\|ksh\|\!ksh\|csh\|\!csh\)\>/ms=s+1
-syntax match ZIIceModifiers  /\s\<\%(nocompletions\|svn\|aliases\|trigger-load\)\>/ms=s+1
+syntax match ZIIceModifiers  /\s\<\%(nocompletions\|aliases\|trigger-load\)\>/ms=s+1
 syntax match ZIIceModifiers  /\s\<\%(light-mode\|is-snippet\|countdown\|ps-on-unload\|ps-on-update\)\>/ms=s+1
-            
+syntax match ZIIceModifiers  /\s\<\%(binary\|null\|debug\|install\|subst\|autoload\|opts\|param\|git\)\>/ms=s+1
+
 " Include also ices added by the existing annexes
 syntax match ZIIceModifiers  /\s\<\%(test\|zman\|submod\|dl\|patch\|fbin\|sbin\|fsrc\|ferc\|fmod\|gem\|node\|rustup\|cargo\)\>/ms=s+1
         
 " Additional Zsh and ZI functions
-syntax match ZshAndZIFunctions     /\<\%(compdef\|compinit\|zpcdreplay\|zpcdclear\|zpcompinit\|zpcompdef\)\>/
+syntax match ZshAndZIFunctions     /\<\%(compdef\|compinit\|zicdreplay\|zicdclear\|zicompinit\|zicompdef\)\>/
 
 " Link
 highlight def link ZshAndZIFunctions    Keyword
