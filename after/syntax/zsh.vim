@@ -9,7 +9,7 @@
 syn match ZICommand '\(^\|\s\)zi\s'ms=e-5,me=e-1 skipwhite
             \ nextgroup=ZICommand,ZIIceCommand,ZIPluginCommand,ZISnippetCommand,ZIForCommand,ZIContinue,ZIIceWithParam,ZIIce
 
-syn match ZICommand '\s\zi-turbo\s'ms=e-5,me=e-1 skipwhite
+syn match ZICommand '\s\zi-turbo\s'ms=s+1,me=e-1 skipwhite
             \ nextgroup=ZIForCommand,ZIPluginCommand,ZISnippetCommand,ZIContinue,ZIIceWithParam,ZIIce
 
 syn match ZICommand '\s\%(self-update\|update\|delete\|cd\|edit\|glance\|stress\|changes\|create\)\>'ms=s+1 skipwhite contained
