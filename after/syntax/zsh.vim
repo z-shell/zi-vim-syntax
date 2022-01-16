@@ -6,119 +6,160 @@
 
 " Main ZI command.
 " Should be the only TOP rule for the whole syntax.
-syntax match ZICommand     /\<\%(zi\|zi-turbo\)\>\s/me=e-1
-            \ skipwhite
-            \ nextgroup=ZISubCommands,ZIPluginSubCommands,ZISnippetSubCommands
-            \ contains=ZISubCommands,ZIPluginSubCommands,ZISnippetSubCommands
+syn match ZICommand '\(^\|\s\)zi\s'ms=e-5,me=e-1 skipwhite
+            \ nextgroup=ZICommand,ZIIceCommand,ZIPluginCommand,ZISnippetCommand,ZIForCommand,ZIContinue,ZIIceWithParam,ZIIce
 
-" TODO: add options for e.g. light
-syntax match ZISubCommands /\s\<\%(ice\|compinit\|env-whitelist\|cdreplay\|cdclear\|update\)\>\s/ms=s+1,me=e-1
-            \ contained
+syn match ZICommand '\(^\|\s\)zi-turbo\s'ms=e-5,me=e-1 skipwhite
+            \ nextgroup=ZIForCommand,ZIPluginCommand,ZISnippetCommand,ZIContinue,ZIIceWithParam,ZIIce
 
-syntax match ZIPluginSubCommands /\s\<\%(light\|load\)\>\s/ms=s+1,me=e-1
-            \ skipwhite 
-            \ nextgroup=ZIPlugin1,ZIPlugin2,ZIPlugin3
-            \ contains=ZIPlugin1,ZIPlugin2,ZIPlugin3
+syn match ZICommand '\s\%(self-update\|update\|delete\|cd\|edit\|glance\|stress\|changes\|create\)\>'ms=s+1 skipwhite contained
+syn match ZICommand '\s\%(times\|zstatus\|report\|loaded\|list\|ls\|status\|recently\|bindkeys\)\>'ms=s+1 skipwhite contained
+syn match ZICommand '\s\%(clist\|completions\|cdisable\|cenable\|creinstall\|cuninstall\)\>'ms=s+1 skipwhite contained
+syn match ZICommand '\s\%(srv\|recall\|env-whitelist\|module\|add-fpath\|fpath\|run\)\>'ms=s+1 skipwhite contained
+syn match ZICommand '\s\%(csearch\|compinit\|cclear\|cdlist\|cdreplay\|cdclear\)\>'ms=s+1 skipwhite contained
+syn match ZICommand '\s\%(dtrace\|dstart\|dstop\|dunload\|dreport\|dclear\)\>'ms=s+1 skipwhite contained
+syn match ZICommand '\s\%(compile\|uncompile\|compiled\)\>'ms=s+1 skipwhite contained
+syn match ZICommand '\s\%(help\|man\)\>'ms=s+1 skipwhite contained
+syn match ZICommand '\s\%(unload\)\>'ms=s+1 skipwhite contained
 
-syntax match ZISnippetSubCommands /\s\<\%(snippet\)\>\s/ms=s+1,me=e-1
-            \ skipwhite
-            \ nextgroup=ZISnippetShorthands1,ZISnippetShorthands2
-            \ contains=ZISnippetShorthands1,ZISnippetShorthands2
+syn match ZIPluginCommand '\s\%(light\|load\)\s'ms=s+1,me=e-1 skipwhite contained nextgroup=ZIPlugin,ZIContinue
+syn match ZISnippetCommand '\s\%(snippet\)\s'ms=s+1,me=e-1 skipwhite contained nextgroup=ZISnippet,ZIContinue
+syn match ZIIceCommand '\sice\s'ms=s+1,me=e-1 skipwhite contained nextgroup=ZIIce,ZIIceWithParam
+syn match ZIForCommand '\sfor\s'ms=s+1,me=e-1 skipwhite contained
+            \ nextgroup=ZIPlugin,ZISnippet,ZIContinue
 
-" "user/plugin"
-syntax match ZIPlugin1 /\s["]\%([!-_]*\%(\/[!-_]\+\)\+\|[!-_]\+\)["]/ms=s+1,hs=s+2,he=e-1
-            \ contained
-            \ nextgroup=ZITrailingWhiteSpace
-            \ contains=ZITrailingWhiteSpace
+syn cluster ZILine contains=ZIIce,ZIIceWithParam,ZIPlugin,ZISnippet,ZIForCommand
 
-" 'user/plugin'
-syntax match ZIPlugin2 /\s[']\%([!-_]*\%(\/[!-_]\+\)\+\|[!-_]\+\)[']/ms=s+1,hs=s+2,he=e-1
-            \ contained
-            \ nextgroup=ZITrailingWhiteSpace
-            \ contains=ZITrailingWhiteSpace
+syn match ZIContinue '\s\\\s*$'ms=s+1,me=s+2 skipwhite contained skipnl
+            \ nextgroup=@ZILine
+" user/plugin or @user/plugin
+syn match ZIPlugin '\s@\?\<[a-zA-Z0-9][a-zA-Z0-9_\-]*\/[a-zA-Z0-9_\-\.]\+\>'ms=s+1 skipwhite contained
+            \ nextgroup=ZIPlugin,ZISnippet,ZIContinue
+" Shorthands
+syn match ZISnippet '\s\%(OMZ[LPT]\?\|PZT[M]\?\)::[a-zA-Z0-9_\-\.\/]\+\>'ms=s+1 skipwhite contained
+            \ nextgroup=ZIPlugin,ZISnippet,ZIContinue
+" URL
+syn match ZISnippet '\s\%(http[s]\?\|ftp\):\/\/[[:alnum:]%\/_#.-]*\>'ms=s+1 skipwhite contained
+            \ nextgroup=ZIPlugin,ZISnippet,ZIContinue
+" "$VAR" local path
+syn match ZISnippet +\s"\$\<[a-zA-Z0-9_]\+[^"]*"+ms=s+1 skipwhite contained
+            \ nextgroup=ZIPlugin,ZISnippet,ZIContinue
+" "${VAR}" local path
+syn match ZISnippet +\s"\${\<[a-zA-Z0-9_]\+}[^"]*"+ms=s+1 skipwhite contained
+            \ nextgroup=ZIPlugin,ZISnippet,ZIContinue
 
-" user/plugin
-syntax match ZIPlugin3 /\s\%([!-_]*\%(\/[!-_]\+\)\+\|[!-_]\+\)/ms=s+1,me=e+2 
-            \ contained
-            \ nextgroup=ZITrailingWhiteSpace
-            \ contains=ZITrailingWhiteSpace
+" Ices which takes a param enclosed in "
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(proto\|from\|ver\|bpick\|depth\|cloneopts\|pullopts\)"+ skip=+\\"+ end=+"+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceDoubleQuoteParam
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(pick\|src\|multisrc\)"+ skip=+\\"+ end=+"+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceDoubleQuoteParam
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(wait\|load\|unload\|if\|has\|subscribe\|on-update-of\|trigger-load\)"+ skip=+\\"+ end=+"+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceDoubleQuoteParam
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(mv\|cp\|atclone\|atpull\|atinit\|atload\|atdelete\|make\)"+ skip=+\\"+ end=+"+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceDoubleQuoteParam
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(as\|id-as\|compile\|nocompile\|service\|bindmap\|wrap-track\)"+ skip=+\\"+ end=+"+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceDoubleQuoteParam
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(extract\|subst\|autoload\)"+ skip=+\\"+ end=+"+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceDoubleQuoteParam
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(wrap\|ps-on-unload\|ps-on-update\)"+ skip=+\\"+ end=+"+ skipwhite contained
 
-" OMZ:: or PZT::
-" TODO: 'OMZ:: or 'PZT::
-syntax match ZISnippetShorthands1 /\s\<\%(\%(OMZ\|OMZP\|OMZL\|OMZT\|PZT\|PZTM\)\>::\|\)/hs=s+1,he=e-2
-            \ contained
-            \ skipwhite
-            \ nextgroup=ZISnippetUrl1,ZISnippetUrl2
-            \ contains=ZISnippetUrl1,ZISnippetUrl2
+" ZI packages
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(param\)"+ skip=+\\"+ end=+"+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceDoubleQuoteParam
 
-" "OMZ:: or "PZT::
-syntax match ZISnippetShorthands2 /\s["]\%(\%(OMZ\|OMZP\|OMZL\|OMZT\|PZT\|PZTM\)\>::\|\)/hs=s+2,he=e-2
-            \ contained
-            \ skipwhite
-            \ nextgroup=ZISnippetUrl3,ZISnippetUrl4
-            \ contains=ZISnippetUrl3,ZISnippetUrl4
+" Added by the existing annexes
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(fbin\|sbin\|gem\|node\|pip\|fmod\|fsrc\|ferc\)"+ skip=+\\"+ end=+"+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceDoubleQuoteParam
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(dl\|patch\|submods\|cargo\|dlink\|dlink0\)"+ skip=+\\"+ end=+"+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceDoubleQuoteParam
 
-syntax match ZISnippetUrl3 /\<\%(http:\/\/\|https:\/\/\|ftp:\/\/\|\$HOME\|\/\)[!-_]\+\%(\/[!-_]\+\)*\/\?["]/he=e-1
-            \ contained
-            \ nextgroup=ZITrailingWhiteSpace
-            \ contains=ZITrailingWhiteSpace
+syn match ZIIceDoubleQuoteParam +[^"]*+ contained
 
-" TODO: Fix ZITrailingWhiteSpace not matching
-syntax match ZISnippetUrl4 /\%(\%(OMZ\|OMZP\|OMZL\|OMZT\|PZT\|PZTM\)::\)[!-_]\+\%(\/[!-_]\+\)*\/\?["]/hs=s+5,he=e-1
-            \ contained
-            \ nextgroup=ZITrailingWhiteSpace
-            \ contains=ZITrailingWhiteSpace
+" Ices that takes a param enclosed in '
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(proto\|from\|ver\|bpick\|depth\|cloneopts\|pullopts\)'+ skip=+\\'+ end=+'+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceSingleQuoteParam
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(pick\|src\|multisrc\)'+ skip=+\\'+ end=+'+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceSingleQuoteParam
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(wait\|load\|unload\|if\|has\|subscribe\|on-update-of\|trigger-load\)'+ skip=+\\'+ end=+'+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceSingleQuoteParam
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(mv\|cp\|atclone\|atpull\|atinit\|atload\|atdelete\|make\)'+ skip=+\\'+ end=+'+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceSingleQuoteParam
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(as\|id-as\|compile\|nocompile\|service\|bindmap\|wrap-track\)'+ skip=+\\'+ end=+'+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceSingleQuoteParam
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(extract\|subst\|autoload\)'+ skip=+\\'+ end=+'+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceSingleQuoteParam
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(wrap\|ps-on-unload\|ps-on-update\)'+ skip=+\\'+ end=+'+ skipwhite contained
 
-" http://… or https://… or ftp://… or $HOME/… or /…
-" TODO: Fix $HOME/… and /… not matching
-syntax match ZISnippetUrl1 /\<\%(http:\/\/\|https:\/\/\|ftp:\/\/\|\$HOME\|\/\)[!-_]\+\%(\/[!-_]\+\)*\/\?/
-            \ contained
-            \ nextgroup=ZITrailingWhiteSpace
-            \ contains=ZITrailingWhiteSpace
+" ZI packages
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(param\)'+ skip=+\\'+ end=+'+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceSingleQuoteParam
 
-" TODO: Fix ZITrailingWhiteSpace not matching
-syntax match ZISnippetUrl2 /\<\%(\%(OMZ\|OMZP\|OMZL\|OMZT\|PZT\|PZTM\)::\)[!-_]\+\%(\/[!-_]\+\)*\/\?/hs=s+5
-            \ contained
-            \ nextgroup=ZITrailingWhiteSpace
-            \ contains=ZITrailingWhiteSpace
+" Added by the existing annexes
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(fbin\|sbin\|gem\|node\|pip\|fmod\|fsrc\|ferc\)'+ skip=+\\'+ end=+'+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceSingleQuoteParam
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(dl\|patch\|submods\|cargo\|dlink\|dlink0\)'+ skip=+\\'+ end=+'+ skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+            \ contains=ZIIceSingleQuoteParam
 
-syntax match ZITrailingWhiteSpace /[[:space:]]\+$/ contained
+syn match ZIIceSingleQuoteParam +[^']*+ contained
 
-" TODO: differentiate the no-value ices
-" TODO: use contained
-syntax match ZIIceSubCommand /\sice\s/ms=s+1,me=e-1 nextgroup=ZIIceModifiers
-syntax match ZIIceModifiers  /\s\<\%(svn\|proto\|from\|teleid\|bindmap\|cloneopts|\pullopts|id-as\|depth\|if\|wait\|load\|pack\)\>/ms=s+1
-syntax match ZIIceModifiers  /\s\<\%(unload\|blockf\|on-update-of\|subscribe\|pick\|bpick\|src\|as\|ver\|silent\)\>/ms=s+1
-syntax match ZIIceModifiers  /\s\<\%(lucid\|notify\|mv\|cp\|atinit\|atclone\|atload\|atpull\|nocd\|run-atpull\|has\)\>/ms=s+1
-syntax match ZIIceModifiers  /\s\<\%(cloneonly\|make\|service\|trackbinds\|multisrc\|compile\|nocompile\|extract\)\>/ms=s+1
-syntax match ZIIceModifiers  /\s\<\%(nocompletions\|reset-prompt\|wrap-track\|reset\|aliases\|sh\|bash\|ksh\|csh\)\>/ms=s+1
-syntax match ZIIceModifiers  /\s\<\%(\\!sh\|!sh\|\\!bash\|!bash\|\\!ksh\|!ksh\|\\!csh\|!csh\)\>/ms=s+1
-syntax match ZIIceModifiers  /\s\<\%(blockf\|silent\|lucid\|cloneonly\|nocd\|run-atpull\)\>/ms=s+1
-syntax match ZIIceModifiers  /\s\<\%(\|sh\|\!sh\|bash\|\!bash\|ksh\|\!ksh\|csh\|\!csh\)\>/ms=s+1
-syntax match ZIIceModifiers  /\s\<\%(nocompletions\|aliases\|trigger-load\|for\)\>/ms=s+1
-syntax match ZIIceModifiers  /\s\<\%(light-mode\|is-snippet\|countdown\|ps-on-unload\|ps-on-update\)\>/ms=s+1
-syntax match ZIIceModifiers  /\s\<\%(binary\|null\|debug\|install\|subst\|autoload\|opts\|param\|git\)\>/ms=s+1
+" Ices that doens't take a param
+syn match ZIIce '\s\%(teleid\|svn\)\>'ms=s+1 skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+syn match ZIIce '\s\%(wait\|cloneonly\)\>'ms=s+1 skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+syn match ZIIce '\s\%(silent\|lucid\|notify\)\>'ms=s+1 skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+syn match ZIIce '\s\%(blockf\|nocompletions\)\>'ms=s+1 skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+syn match ZIIce '\s\%(run-atpull\|nocd\|make\|countdown\|reset\)\>'ms=s+1 skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+syn match ZIIce '\s!\?\%(sh\|bash\|ksh\|csh\)\>'ms=s+1 skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+syn match ZIIce '\s\%(id-as\|nocompile\|reset-prompt\|trackbinds\|aliases\|light-mode\)\>'ms=s+1 skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+syn match ZIIce '\s\%(is-snippet\)\>'ms=s+1 skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
 
-" Include also ices added by the existing annexes
-syntax match ZIIceModifiers  /\s\<\%(test\|zman\|submod\|dl\|patch\|fbin\|sbin\|fsrc\|ferc\|fmod\|gem\|node\|rustup\|cargo\)\>/ms=s+1
-        
+" Ices that doens't take a param, from ZI packages
+syn match ZIIce '\s\%(pack\|git\|null\)\>'ms=s+1 skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+
+" Ices that doens't take a param, added by the existing annexes
+syn match ZIIce '\s\%(notest\|rustup\|default-ice\|skip\|debug\)\>'ms=s+1 skipwhite contained
+            \ nextgroup=@ZILine,ZIContinue
+
 " Additional Zsh and ZI functions
-syntax match ZshAndZIFunctions     /\<\%(compdef\|compinit\|zicdreplay\|zicdclear\|zicompinit\|zicompdef\)\>/
+syn match ZshAndZIFunctions '\<\%(compdef\|compinit\|zpcdreplay\|zpcdclear\|zpcompinit\|zpcompdef\)\>'
 
-" Link
-highlight def link ZshAndZIFunctions    Keyword
-highlight def link ZICommand            Statement
-highlight def link ZISubCommands        Title
-highlight def link ZIPluginSubCommands  Title
-highlight def link ZISnippetSubCommands Title
-highlight def link ZIIceModifiers       Type
-highlight def link ZISnippetShorthands1 Keyword
-highlight def link ZISnippetShorthands2 Keyword
-highlight def link ZIPlugin1            Macro
-highlight def link ZIPlugin2            Macro
-highlight def link ZIPlugin3            Macro
-highlight def link ZISnippetUrl1        Macro
-highlight def link ZISnippetUrl2        Macro
-highlight def link ZISnippetUrl3        Macro
-highlight def link ZISnippetUrl4        Macro
-highlight def link ZITrailingWhiteSpace Error
+" highlights
+hi def link ZICommand             Statement
+hi def link ZICommand             Title
+hi def link ZIIceCommand          Title
+hi def link ZIPluginCommand       Title
+hi def link ZISnippetCommand      Title
+hi def link ZIForCommand          zshRepeat
+" hi def link ZIContinue            zshOperator
+hi def link ZIPlugin              Macro
+hi def link ZISnippet             Macro
+hi def link ZIIce                 Type
+hi def link ZIIceDoubleQuoteParam Special
+hi def link ZIIceSingleQuoteParam Special
+hi def link ZshAndZIFunctions     Keyword
