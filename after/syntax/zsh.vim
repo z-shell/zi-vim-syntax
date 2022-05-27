@@ -12,9 +12,9 @@ syn match ZICommand '\(^\|\s\)zi\s'ms=e-5,me=e-1 skipwhite
 syn match ZICommand '\s\%(self-update\|update\|delete\|cd\|edit\|glance\|stress\|changes\|create\)\>'ms=s+1 skipwhite contained
 syn match ZICommand '\s\%(times\|zstatus\|report\|loaded\|list\|ls\|status\|recently\|bindkeys\)\>'ms=s+1 skipwhite contained
 syn match ZICommand '\s\%(clist\|completions\|cdisable\|cenable\|creinstall\|cuninstall\)\>'ms=s+1 skipwhite contained
-syn match ZICommand '\s\%(srv\|recall\|env-whitelist\|module\|add-fpath\|fpath\|run\)\>'ms=s+1 skipwhite contained
-syn match ZICommand '\s\%(csearch\|compinit\|cclear\|cdlist\|cdreplay\|cdclear\)\>'ms=s+1 skipwhite contained
-syn match ZICommand '\s\%(dtrace\|dstart\|dstop\|dunload\|dreport\|dclear\)\>'ms=s+1 skipwhite contained
+syn match ZICommand '\s\%(subcmds\|srv\|recall\|env-whitelist\|module\|add-fpath\|fpath\|run\)\>'ms=s+1 skipwhite contained
+syn match ZICommand '\s\%(icemods\|csearch\|compinit\|cclear\|cdlist\|cdreplay\|cdclear\)\>'ms=s+1 skipwhite contained
+syn match ZICommand '\s\%(analytics\|dtrace\|dstart\|dstop\|dunload\|dreport\|dclear\)\>'ms=s+1 skipwhite contained
 syn match ZICommand '\s\%(compile\|uncompile\|compiled\)\>'ms=s+1 skipwhite contained
 syn match ZICommand '\s\%(help\|man\)\>'ms=s+1 skipwhite contained
 syn match ZICommand '\s\%(unload\)\>'ms=s+1 skipwhite contained
