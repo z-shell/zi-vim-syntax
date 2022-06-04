@@ -111,7 +111,7 @@ syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(param\)'+ skip=+\\'+ end=
 syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(fbin\|sbin\|gem\|node\|pip\|fmod\|fsrc\|ferc\)'+ skip=+\\'+ end=+'+ skipwhite contained
             \ nextgroup=@ZILine,ZIContinue
             \ contains=ZIIceSingleQuoteParam
-syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(dl\|patch\|submods\|cargo\|dlink\|dlink0\)'+ skip=+\\'+ end=+'+ skipwhite contained
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(dl\|patch\|submods\|cargo\|dlink\|dlink0\|recache\)'+ skip=+\\'+ end=+'+ skipwhite contained
             \ nextgroup=@ZILine,ZIContinue
             \ contains=ZIIceSingleQuoteParam
 
@@ -144,7 +144,7 @@ syn match ZIIce '\s\%(notest\|rustup\|default-ice\|skip\|debug\)\>'ms=s+1 skipwh
             \ nextgroup=@ZILine,ZIContinue
 
 " Additional Zsh and ZI functions
-syn match ZshAndZIFunctions '\<\%(compdef\|compinit\|zpcdreplay\|zpcdclear\|zpcompinit\|zpcompdef\)\>'
+syn match ZshAndZIFunctions '\<\%(compdef\|compinit\|zicdreplay\|zicdclear\|zicompinit\|zicompdef\)\>'
 
 " highlights
 hi def link ZICommand             Statement
