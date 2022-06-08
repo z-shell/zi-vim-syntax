@@ -1,11 +1,10 @@
+<h1 align="center">
+  <p><a href="https://github.com/z-shell/zi">
+    <img align="center" src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="Logo" width="60px" height="60px">
+  </a> ❮ ZI ❯ Vim Syntax </p></h1>
 <h2 align="center">
-  <a href="https://github.com/z-shell/zi">
-    <img src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="Logo" width="80" height="80">
-  </a>
-❮ ZI ❯ Vim Syntax
-</h2>
-
-A Vim syntax definition for [ZI](https://github.com/z-shell/zi) commands in any file of type `zsh`.
+  <p> A Vim syntax definition for <a href="https://github.com/z-shell/zi">zi</a> commands in any file of type <code>zsh</code> </p>
+</h2></div><hr />
 
 # Installation
 
