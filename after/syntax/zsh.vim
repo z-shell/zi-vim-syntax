@@ -14,8 +14,8 @@ syn match ZICommand '\s\%(times\|zstatus\|report\|loaded\|list\|ls\|status\|rece
 syn match ZICommand '\s\%(clist\|completions\|cdisable\|cenable\|creinstall\|cuninstall\)\>'ms=s+1 skipwhite contained
 syn match ZICommand '\s\%(subcmds\|srv\|recall\|env-whitelist\|module\|add-fpath\|fpath\|run\)\>'ms=s+1 skipwhite contained
 syn match ZICommand '\s\%(icemods\|csearch\|compinit\|cclear\|cdlist\|cdreplay\|cdclear\)\>'ms=s+1 skipwhite contained
-syn match ZICommand '\s\%(analytics\|dtrace\|dstart\|dstop\|dunload\|dreport\|dclear\)\>'ms=s+1 skipwhite contained
-syn match ZICommand '\s\%(compile\|uncompile\|compiled\)\>'ms=s+1 skipwhite contained
+syn match ZICommand '\s\%(codeload\|analytics\|dtrace\|dstart\|dstop\|dunload\|dreport\|dclear\)\>'ms=s+1 skipwhite contained
+syn match ZICommand '\s\%(turbo\|compile\|uncompile\|compiled\)\>'ms=s+1 skipwhite contained
 syn match ZICommand '\s\%(help\|man\)\>'ms=s+1 skipwhite contained
 syn match ZICommand '\s\%(unload\)\>'ms=s+1 skipwhite contained
 
@@ -58,7 +58,7 @@ syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(wait\|load\|unload\|if\|h
 syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(mv\|cp\|atclone\|atpull\|atinit\|atload\|atdelete\|make\)"+ skip=+\\"+ end=+"+ skipwhite contained
             \ nextgroup=@ZILine,ZIContinue
             \ contains=ZIIceDoubleQuoteParam
-syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(as\|id-as\|compile\|nocompile\|service\|bindmap\|wrap-track\)"+ skip=+\\"+ end=+"+ skipwhite contained
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(as\|id-as\|compile\|nocompile\|service\|bindmap\|wrap\)"+ skip=+\\"+ end=+"+ skipwhite contained
             \ nextgroup=@ZILine,ZIContinue
             \ contains=ZIIceDoubleQuoteParam
 syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(extract\|subst\|autoload\)"+ skip=+\\"+ end=+"+ skipwhite contained
@@ -94,7 +94,7 @@ syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(wait\|load\|unload\|if\|h
 syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(mv\|cp\|atclone\|atpull\|atinit\|atload\|atdelete\|make\)'+ skip=+\\'+ end=+'+ skipwhite contained
             \ nextgroup=@ZILine,ZIContinue
             \ contains=ZIIceSingleQuoteParam
-syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(as\|id-as\|compile\|nocompile\|service\|bindmap\|wrap-track\)'+ skip=+\\'+ end=+'+ skipwhite contained
+syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(as\|id-as\|compile\|nocompile\|service\|bindmap\|wrap\)'+ skip=+\\'+ end=+'+ skipwhite contained
             \ nextgroup=@ZILine,ZIContinue
             \ contains=ZIIceSingleQuoteParam
 syn region ZIIceWithParam matchgroup=ZIIce start=+\s\%(extract\|subst\|autoload\)'+ skip=+\\'+ end=+'+ skipwhite contained
